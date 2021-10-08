@@ -46,7 +46,7 @@ const (
 
 // CurrentFile 获取当前文件执行的目录
 func CurrentFile() string {
-	_, file, _, ok := runtime.Caller(1)
+	_, file, _, ok := runtime.Caller(0)
 	if !ok {
 		panic(errors.New("Can not get current file info"))
 	}
