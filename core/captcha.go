@@ -13,7 +13,6 @@ import (
 	"io/ioutil"
 	"math"
 	"math/rand"
-	"os"
 	"time"
 )
 
@@ -50,8 +49,12 @@ func New() *Captcha {
 	}
 	c.frontColors = []color.Color{color.Black}
 	c.bkgColors = []color.Color{color.White}
-	pwd, _ := os.Getwd()
-	if err := c.SetFont(pwd + "/core/comic.ttf"); err != nil {
+	//pwd, _ := os.Getwd()
+	//if err := c.SetFont(pwd + "/core/comic.ttf"); err != nil {
+	//	panic(err.Error())
+	//}
+
+	if err := c.SetFont("comic.ttf"); err != nil {
 		panic(err.Error())
 	}
 	return c
