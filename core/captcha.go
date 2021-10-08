@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/base64"
 	"errors"
-	"fmt"
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
 	"image"
@@ -45,6 +44,7 @@ const (
 	HIGH   DisturLevel = 16
 )
 
+// CurrentFile 获取当前文件执行的目录
 func CurrentFile() string {
 	_, file, _, ok := runtime.Caller(1)
 	if !ok {
@@ -60,12 +60,6 @@ func New() *Captcha {
 	}
 	c.frontColors = []color.Color{color.Black}
 	c.bkgColors = []color.Color{color.White}
-	//pwd, _ := os.Getwd()
-	//if err := c.SetFont(pwd + "/core/comic.ttf"); err != nil {
-	//	panic(err.Error())
-	//}
-	fmt.Println(strings.Replace(CurrentFile(), "captcha.go", "comic.ttf", -1))
-
 	if err := c.SetFont(strings.Replace(CurrentFile(), "captcha.go", "comic.ttf", -1)); err != nil {
 		panic(err.Error())
 	}
