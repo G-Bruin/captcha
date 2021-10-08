@@ -3,6 +3,7 @@ package core
 import (
 	"bytes"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
@@ -13,6 +14,8 @@ import (
 	"io/ioutil"
 	"math"
 	"math/rand"
+	"runtime"
+	"strings"
 	"time"
 )
 
@@ -42,6 +45,14 @@ const (
 	HIGH   DisturLevel = 16
 )
 
+func CurrentFile() string {
+	_, file, _, ok := runtime.Caller(1)
+	if !ok {
+		panic(errors.New("Can not get current file info"))
+	}
+	return file
+}
+
 func New() *Captcha {
 	c := &Captcha{
 		disturlvl: MEDIUM,
@@ -53,8 +64,9 @@ func New() *Captcha {
 	//if err := c.SetFont(pwd + "/core/comic.ttf"); err != nil {
 	//	panic(err.Error())
 	//}
+	fmt.Println(strings.Replace(CurrentFile(), "captcha.go", "comic.ttf", -1))
 
-	if err := c.SetFont("comic.ttf"); err != nil {
+	if err := c.SetFont(strings.Replace(CurrentFile(), "captcha.go", "comic.ttf", -1)); err != nil {
 		panic(err.Error())
 	}
 	return c
@@ -238,8 +250,6 @@ func (c *Captcha) Create(num int, t StrType) (*Image, string) {
 	str := string(c.randStr(num, int(t)))
 	c.drawString(dst, str)
 	//c.drawString(tmp, str)
-
-	fmt.Println(dst)
 
 	return dst, str
 }
