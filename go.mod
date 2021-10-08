@@ -1,4 +1,4 @@
-module y-captcha
+module github.com/G-Bruin/captcha
 
 go 1.17
 

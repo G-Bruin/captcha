@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
+	"github.com/G-Bruin/captcha/core"
 	"image/color"
 	"image/png"
 	"net/http"
 )
-import "y-captcha/core"
 
 //var cap *core.Captcha
 
-func main()  {
+func main() {
 	cap := core.New()
 
-    //We can load font not only from localfile, but also from any []byte slice
+	//We can load font not only from localfile, but also from any []byte slice
 	//fontContenrs, err := ioutil.ReadFile("comic.ttf")
 	//if err != nil {
 	//	panic(err.Error())
@@ -41,7 +41,6 @@ func main()  {
 		htmlImage := "<img src=\"data:image/png;base64," + base64Img + "\" />"
 		fmt.Println(htmlImage)
 	})
-
 
 	http.HandleFunc("/c", func(w http.ResponseWriter, r *http.Request) {
 		str := r.URL.RawQuery

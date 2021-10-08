@@ -13,6 +13,7 @@ import (
 	"io/ioutil"
 	"math"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -49,7 +50,8 @@ func New() *Captcha {
 	}
 	c.frontColors = []color.Color{color.Black}
 	c.bkgColors = []color.Color{color.White}
-	if err := c.SetFont("comic.ttf"); err != nil {
+	pwd, _ := os.Getwd()
+	if err := c.SetFont(pwd + "/core/comic.ttf"); err != nil {
 		panic(err.Error())
 	}
 	return c
@@ -240,7 +242,7 @@ func (c *Captcha) Create(num int, t StrType) (*Image, string) {
 }
 
 // CreateBase64 生成图片base64
-func (c *Captcha) CreateBase64(num int, t StrType) (string, string)  {
+func (c *Captcha) CreateBase64(num int, t StrType) (string, string) {
 	dst, str := c.Create(num, t)
 	var buff bytes.Buffer
 	png.Encode(&buff, dst)
